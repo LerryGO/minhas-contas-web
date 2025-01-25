@@ -5,5 +5,11 @@ declare namespace Project{
         login: string,
         password: string,
         email: string,
+    };
+
+    type Resource = {
+        id? : number;
+        name : string;
+        key : string;
     }
 }
