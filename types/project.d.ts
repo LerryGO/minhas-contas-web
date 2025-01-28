@@ -16,5 +16,11 @@ declare namespace Project{
     type Profile = {
         id? : number;
         description : string;
-     }
+    }
+
+    type UserProfile = {
+        id? : number;
+        profile: Profile;
+        user: User;
+    }
 }
