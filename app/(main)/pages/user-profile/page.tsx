@@ -67,7 +67,7 @@ const UserProfile = () => {
                     detail: 'Erro ao carregar a lista de usuário',
                     life: 3000
                 });
-            })
+            });
             profileService.getAll()
             .then((response) => setProfiles(response.data))
             .catch(error => {
@@ -78,7 +78,7 @@ const UserProfile = () => {
                     detail: 'Erro ao carregar a lista de perfis',
                     life: 3000
                 });
-            })
+            });
 
         }
     }, [userProfileDialog, profileService, userService])
@@ -259,7 +259,7 @@ const UserProfile = () => {
         );
     };
 
-    const idBodyTemplate = (rowData: Project.UserProfile) => {
+    const idBodyTemplate = (rowData: Project.Profile) => {
         return (
             <>
                 <span className="p-column-title">Código</span>
@@ -268,10 +268,19 @@ const UserProfile = () => {
         );
     };
 
-    const descriptionBodyTemplate = (rowData: Project.UserProfile) => {
+    const profileBodyTemplate = (rowData: Project.UserProfile) => {
         return (
             <>
-                <span className="p-column-title">Usuário</span>
+                <span className="p-column-title">Perfil</span>
+                {rowData.profile.description}
+            </>
+        );
+    };
+
+    const userBodyTemplate = (rowData: Project.UserProfile) => {
+        return (
+            <>
+                <span className="p-column-title">Perfil</span>
                 {rowData.user.name}
             </>
         );
@@ -355,7 +364,8 @@ const UserProfile = () => {
                     >
                         <Column selectionMode="multiple" headerStyle={{ width: '4rem' }}></Column>
                         <Column field="id" header="Código" sortable body={idBodyTemplate} headerStyle={{ minWidth: '15rem' }}></Column>
-                        <Column field="name" header="Nome" sortable body={descriptionBodyTemplate} headerStyle={{ minWidth: '15rem' }}></Column>
+                        <Column field="name" header="Perfil" sortable body={profileBodyTemplate} headerStyle={{ minWidth: '15rem' }}></Column>
+                        <Column field="name" header="Usuário" sortable body={userBodyTemplate} headerStyle={{ minWidth: '15rem' }}></Column>
                         
 
                         <Column body={actionBodyTemplate} headerStyle={{ minWidth: '10rem' }}></Column>
@@ -365,7 +375,7 @@ const UserProfile = () => {
                         <div className="field">
                             <label htmlFor="profile">Perfil</label>
                             <Dropdown
-                            optionLabel='descricao' 
+                            optionLabel='description' 
                             value={userProfile.profile}
                             options={profiles}
                             filter onChange={(e: DropdownChangeEvent) => onSelectProfileChange(e.value)
@@ -385,7 +395,7 @@ const UserProfile = () => {
                             filter onChange={(e: DropdownChangeEvent) => onSelectUserChange(e.value)}
                             placeholder='Selecione um usuário...'/>
                 
-                            {submitted && !useruser.user && <small className="p-invalid">Descrição é obrigatório.</small>}
+                            {submitted && !userProfile.user && <small className="p-invalid">Descrição é obrigatório.</small>}
                         </div>
                     </Dialog>
                         
